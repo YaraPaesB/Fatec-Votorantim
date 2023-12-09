@@ -1,0 +1,29 @@
+public static boolean validaBalanceamento(String expressao){
+        
+        PilhaString p = new PilhaString();
+        for(int i=0; i<expressao.length();i++){
+            
+            switch(expressao.charAt(i)){
+                case '(':
+                    p.empilhar(")");
+                    break;
+                case '[':
+                    p.empilhar("]");
+                    break;
+                case '{':
+                    p.empilhar("}");
+                    break;
+            }
+            
+            if(expressao.charAt(i)==')' ||
+                    expressao.charAt(i)==']' ||
+                        expressao.charAt(i)=='}' ){
+                if(p.exibirTopo().equals(Character.toString( expressao.charAt(i))))
+                    p.desempilhar();
+                else
+                    return false;
+                }
+            }        
+        if (p.pilhaVazia()) return true;
+        else                return false;
+    }

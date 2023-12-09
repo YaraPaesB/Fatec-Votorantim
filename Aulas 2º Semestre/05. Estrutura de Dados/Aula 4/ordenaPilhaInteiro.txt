@@ -1,0 +1,60 @@
+public static PilhaInt ordenaPilhaInt(PilhaInt pilhaEntrada){
+        
+        List<PilhaInt> aux= new ArrayList<PilhaInt>();
+        aux.add(new PilhaInt());
+        boolean empilhado=false;
+        PilhaInt pilhaSaida=new PilhaInt();
+        int temp=0;
+       int indiceTemp=0;
+        
+        
+        
+        while(!pilhaEntrada.pilhaVazia()){
+            // Descarrega da pilhaEntrada e carrega na pilha auxiliar respeitando a crescente
+            empilhado=false;
+            for(PilhaInt p: aux){
+                if (p.pilhaVazia()){
+                    p.empilhar(pilhaEntrada.desempilhar());                    
+                    empilhado=true;
+                    break;
+                }
+                else if( p.exibirTopo() <=  pilhaEntrada.exibirTopo()  ){
+                    p.empilhar(pilhaEntrada.desempilhar());
+                    empilhado=true;
+                    break;
+                }                
+            }
+            if (!empilhado){
+                aux.add(new PilhaInt());
+                aux.get(aux.size()-1).empilhar(pilhaEntrada.desempilhar());
+            }
+        }
+        
+        while(!aux.isEmpty()){
+        // Verifica o topo de todas as pilhas auxiliares e desempilha a maior empilhando na pilha de saida
+            for(int i=0; i<aux.size();i++){
+                if( aux.get(i).exibirTopo()>=temp){
+                    temp = aux.get(i).exibirTopo();    
+                    indiceTemp=i;
+                }           
+            }
+            
+            pilhaSaida.empilhar(aux.get(indiceTemp).desempilhar());
+            
+            if (aux.get(indiceTemp).pilhaVazia()) aux.remove(indiceTemp);
+            temp=0;
+            indiceTemp=0;
+            
+        }
+        return pilhaSaida;
+    }
+
+public static String listarItensPilha(PilhaInt pilha){
+        
+        String resposta="";
+        
+        while(!pilha.pilhaVazia()){
+            resposta += pilha.desempilhar().toString()+" ";
+        }
+        return resposta;
+    }

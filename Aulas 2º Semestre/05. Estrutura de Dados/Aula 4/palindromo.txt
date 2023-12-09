@@ -1,0 +1,19 @@
+public static boolean palindromo(String palavra){
+        
+        /*Para converter Char para String utilize
+        Character.toString( char );
+        */
+        PilhaString p=new PilhaString();
+        String palavraInvertida="";
+        for(int i=0; i<palavra.length();i++){
+            p.empilhar(Character.toString(palavra.charAt(i)));
+        }
+        while(!p.pilhaVazia()){
+            //Desempilhar e concatenar em uma nova String
+            palavraInvertida+= p.desempilhar();
+        }
+        if(palavra.equals(palavraInvertida))        
+            return true;
+        else
+            return false;
+    }
